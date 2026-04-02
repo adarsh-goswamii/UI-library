@@ -39,7 +39,7 @@ jobs:
       - name: Publish prerelease
         if: github.ref == 'refs/heads/develop'
         run: |
-          NPM_DEV=$(npm view @adarsh/brand dist-tags.dev 2>/dev/null | tr -d ' ' || true)
+          NPM_DEV=$(npm view @adarsh_goswami/brand dist-tags.dev 2>/dev/null | tr -d ' ' || true)
           NPM_BASE=$(echo "${NPM_DEV%-dev}" | tr -d ' ')
           PKG_BASE=$(node -p "require('./package.json').version")
 
@@ -77,7 +77,7 @@ jobs:
       - name: Publish stable
         if: github.ref == 'refs/heads/main'
         run: |
-          NPM_VER=$(npm view @adarsh/brand version 2>/dev/null | tr -d ' ' || true)
+          NPM_VER=$(npm view @adarsh_goswami/brand version 2>/dev/null | tr -d ' ' || true)
           PKG_VER=$(node -p "require('./package.json').version")
 
           NEW=$(node -e "
