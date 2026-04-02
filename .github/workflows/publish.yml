@@ -1,0 +1,110 @@
+name: Publish to npm
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Type check
+        run: bun run typecheck
+
+      - name: Build
+        run: bun run build
+
+      - name: Setup npm auth
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
+      # develop → prerelease e.g. 0.1.1-dev, 0.1.2-dev
+      # If package.json base version > current npm dev base → use package.json (manual minor/major override)
+      # Otherwise → auto-increment patch from last published dev version
+      - name: Publish prerelease
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          NPM_DEV=$(npm view @adarsh/brand dist-tags.dev 2>/dev/null | tr -d ' ' || true)
+          NPM_BASE=$(echo "${NPM_DEV%-dev}" | tr -d ' ')
+          PKG_BASE=$(node -p "require('./package.json').version")
+
+          NEW=$(node -e "
+            const npmBase = '$NPM_BASE' || '0.0.0';
+            const pkgBase = '$PKG_BASE';
+
+            const parse = v => v.split('.').map(Number);
+            const gt = (a, b) => {
+              const [pa, pb] = [parse(a), parse(b)];
+              for (let i = 0; i < 3; i++) {
+                if (pa[i] > pb[i]) return true;
+                if (pa[i] < pb[i]) return false;
+              }
+              return false;
+            };
+
+            if (gt(pkgBase, npmBase)) {
+              // Manual override — use package.json version as new base
+              console.log(pkgBase + '-dev');
+            } else {
+              // Auto-increment patch from last npm dev version
+              const v = parse(npmBase.length ? npmBase : '0.0.0');
+              v[2]++;
+              console.log(v.join('.') + '-dev');
+            }
+          ")
+
+          echo "Publishing $NEW"
+          npm version "$NEW" --no-git-tag-version
+          npm publish --tag dev --access public
+
+      # main → stable e.g. 0.1.1, 0.1.2
+      # Same logic — auto-increment patch unless package.json signals a manual bump
+      - name: Publish stable
+        if: github.ref == 'refs/heads/main'
+        run: |
+          NPM_VER=$(npm view @adarsh/brand version 2>/dev/null | tr -d ' ' || true)
+          PKG_VER=$(node -p "require('./package.json').version")
+
+          NEW=$(node -e "
+            const npmVer = '$NPM_VER' || '0.0.0';
+            const pkgVer = '$PKG_VER';
+
+            const parse = v => v.split('.').map(Number);
+            const gt = (a, b) => {
+              const [pa, pb] = [parse(a), parse(b)];
+              for (let i = 0; i < 3; i++) {
+                if (pa[i] > pb[i]) return true;
+                if (pa[i] < pb[i]) return false;
+              }
+              return false;
+            };
+
+            if (gt(pkgVer, npmVer)) {
+              // Manual override — publish exact package.json version
+              console.log(pkgVer);
+            } else {
+              // Auto-increment patch from last npm version
+              const v = parse(npmVer.length ? npmVer : '0.0.0');
+              v[2]++;
+              console.log(v.join('.'));
+            }
+          ")
+
+          echo "Publishing $NEW"
+          npm version "$NEW" --no-git-tag-version
+          npm publish --tag latest --access public

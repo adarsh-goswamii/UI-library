@@ -1,0 +1,109 @@
+/* @adarsh/brand — Tailwind v4 theme */
+/*
+  Add to your main CSS file:
+
+  @import "tailwindcss";
+  @import "@adarsh/brand/dist/theme.css";
+  @import "@adarsh/brand/dist/tailwind.config.css";
+*/
+
+@theme {
+  /* ── COLORS — BACKGROUNDS ── */
+  --color-bg-base:    var(--bg-base);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-raised:  var(--bg-raised);
+  --color-bg-overlay: var(--bg-overlay);
+  --color-bg-hover:   var(--bg-hover);
+  --color-bg-active:  var(--bg-active);
+
+  /* ── COLORS — BORDERS ── */
+  --color-border-subtle: var(--border-subtle);
+  --color-border-soft:   var(--border-soft);
+  --color-border-mid:    var(--border-mid);
+  --color-border-hover:  var(--border-hover);
+  --color-border-focus:  var(--border-focus);
+
+  /* ── COLORS — TEXT ── */
+  --color-text-primary:   var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted:     var(--text-muted);
+  --color-text-disabled:  var(--text-disabled);
+
+  /* ── COLORS — ACCENT ── */
+  --color-accent:        var(--accent);
+  --color-accent-bright: var(--accent-bright);
+  --color-accent-dim:    var(--accent-dim);
+  --color-accent-hover:  var(--accent-hover);
+  --color-accent-active: var(--accent-active);
+
+  /* ── COLORS — SEMANTIC ── */
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error:   var(--error);
+  --color-info:    var(--info);
+
+  /* ── TYPOGRAPHY — FONT FAMILIES ── */
+  --font-display: var(--brand-font-display);
+  --font-body:    var(--brand-font-body);
+  --font-mono:    var(--brand-font-mono);
+
+  /* ── TYPOGRAPHY — FONT SIZES ── */
+  --text-xs:   var(--brand-text-xs);
+  --text-sm:   var(--brand-text-sm);
+  --text-base: var(--brand-text-base);
+  --text-md:   var(--brand-text-md);
+  --text-lg:   var(--brand-text-lg);
+  --text-xl:   var(--brand-text-xl);
+  --text-2xl:  var(--brand-text-2xl);
+  --text-3xl:  var(--brand-text-3xl);
+  --text-4xl:  var(--brand-text-4xl);
+  --text-5xl:  var(--brand-text-5xl);
+
+  /* ── TYPOGRAPHY — LINE HEIGHTS ── */
+  --leading-none:    var(--brand-leading-none);
+  --leading-tight:   var(--brand-leading-tight);
+  --leading-snug:    var(--brand-leading-snug);
+  --leading-normal:  var(--brand-leading-normal);
+  --leading-relaxed: var(--brand-leading-relaxed);
+  --leading-loose:   var(--brand-leading-loose);
+
+  /* ── TYPOGRAPHY — LETTER SPACING ── */
+  --tracking-tighter: var(--brand-tracking-tighter);
+  --tracking-tight:   var(--brand-tracking-tight);
+  --tracking-normal:  var(--brand-tracking-normal);
+  --tracking-wide:    var(--brand-tracking-wide);
+  --tracking-wider:   var(--brand-tracking-wider);
+  --tracking-widest:  var(--brand-tracking-widest);
+
+  /* ── RADIUS ── */
+  --radius-sm:   var(--brand-radius-sm);
+  --radius-md:   var(--brand-radius-md);
+  --radius-lg:   var(--brand-radius-lg);
+  --radius-xl:   var(--brand-radius-xl);
+  --radius-2xl:  var(--brand-radius-2xl);
+  --radius-full: var(--brand-radius-full);
+
+  /* ── SHADOWS ── */
+  --shadow-sm:     var(--brand-shadow-sm);
+  --shadow-md:     var(--brand-shadow-md);
+  --shadow-lg:     var(--brand-shadow-lg);
+  --shadow-accent: var(--brand-shadow-accent);
+
+  /* ── Z-INDEX ── */
+  --z-base:     var(--brand-z-base);
+  --z-dropdown: var(--brand-z-dropdown);
+  --z-sticky:   var(--brand-z-sticky);
+  --z-overlay:  var(--brand-z-overlay);
+  --z-modal:    var(--brand-z-modal);
+  --z-toast:    var(--brand-z-toast);
+  --z-tooltip:  var(--brand-z-tooltip);
+
+  /* ── TRANSITIONS — DURATION ── */
+  --duration-fast: var(--brand-duration-fast);
+  --duration-base: var(--brand-duration-base);
+  --duration-slow: var(--brand-duration-slow);
+
+  /* ── TRANSITIONS — EASING ── */
+  --ease-smooth:  var(--brand-ease-out);
+  --ease-in-out:  var(--brand-ease-in-out);
+}

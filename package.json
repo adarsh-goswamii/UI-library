@@ -1,0 +1,48 @@
+{
+  "name": "@adarsh/brand",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Single source of truth for Adarsh Goswami's personal brand — pre-themed Radix UI components, CSS tokens, and Tailwind preset.",
+  "author": "Adarsh Goswami",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./dist/theme.css": "./dist/theme.css",
+    "./dist/tailwind.config.css": "./dist/tailwind.config.css",
+    "./dist/assets/*": "./dist/assets/*"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@radix-ui/themes": ">=3.0.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@radix-ui/themes": "^3.3.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
