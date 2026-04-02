@@ -1,5 +1,5 @@
 {
-  "name": "@adarsh/brand",
+  "name": "@adarsh_goswami/brand",
   "version": "0.1.0",
   "type": "module",
   "description": "Single source of truth for Adarsh Goswami's personal brand — pre-themed Radix UI components, CSS tokens, and Tailwind preset.",
