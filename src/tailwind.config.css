@@ -1,10 +1,10 @@
-/* @adarsh/brand — Tailwind v4 theme */
+/* @adarsh_goswami/brand — Tailwind v4 theme */
 /*
   Add to your main CSS file:
 
   @import "tailwindcss";
-  @import "@adarsh/brand/dist/theme.css";
-  @import "@adarsh/brand/dist/tailwind.config.css";
+  @import "@adarsh_goswami/brand/dist/theme.css";
+  @import "@adarsh_goswami/brand/dist/tailwind.config.css";
 */
 
 @theme {

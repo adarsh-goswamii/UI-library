@@ -1,4 +1,4 @@
-# CLAUDE.md — @adarsh/brand
+# CLAUDE.md — @adarsh_goswami/brand
 
 > This file is read automatically by Claude Code at the start of every session.
 > Do not delete or move it. Update it whenever the project plan changes.
@@ -8,7 +8,7 @@
 
 ## What is this project?
 
-`@adarsh/brand` is a standalone npm package and the single source of truth for Adarsh Goswami's personal brand. It ships pre-themed Radix UI components with the AG brand applied — consuming apps install it, import components, and get fully branded UI out of the box. No Radix setup, no theme configuration, no copy-pasting tokens.
+`@adarsh_goswami/brand` is a standalone npm package and the single source of truth for Adarsh Goswami's personal brand. It ships pre-themed Radix UI components with the AG brand applied — consuming apps install it, import components, and get fully branded UI out of the box. No Radix setup, no theme configuration, no copy-pasting tokens.
 
 **North star: consuming apps assemble UIs, this package makes all design decisions.**
 
@@ -18,11 +18,11 @@
 
 - **Pre-themed Radix UI components** — curated subset, branded and ready to use
 - **`dist/theme.css`** — all design tokens as CSS custom properties under `:root`, scoped to Radix UI Themes variable names
-- **`dist/tailwind.preset.js`** — Tailwind CSS preset exposing brand tokens as utilities (extends Tailwind defaults)
+- **`dist/tailwind.config.css`** — Tailwind v4 `@theme` block exposing brand tokens as utilities
 - **`dist/assets/logo.svg`** — full wordmark
 - **`dist/assets/logo-mark.svg`** — icon only
 - **`dist/assets/favicon.svg`** — favicon variant
-- Published to npm as `@adarsh/brand` (public)
+- Published to npm as `@adarsh_goswami/brand` (public)
 
 ---
 
@@ -41,24 +41,25 @@
 
 ### Install
 ```bash
-npm install @adarsh/brand
+npm install @adarsh_goswami/brand
 ```
 
 ### Setup in a React + Vite project
 ```tsx
 // main.tsx
-import '@adarsh/brand/dist/theme.css'
+import '@adarsh_goswami/brand/dist/theme.css'
 ```
 
-```js
-// tailwind.config.js
-const brandPreset = require('@adarsh/brand/dist/tailwind.preset')
-module.exports = { presets: [brandPreset] }
+```css
+/* main.css */
+@import "tailwindcss";
+@import "@adarsh_goswami/brand/dist/theme.css";
+@import "@adarsh_goswami/brand/dist/tailwind.config.css";
 ```
 
 ```tsx
 // App.tsx
-import { Button, Card } from '@adarsh/brand'
+import { Button, Card } from '@adarsh_goswami/brand'
 
 export default function App() {
   return (
@@ -75,7 +76,7 @@ export default function App() {
 npm link
 
 # In the consuming project
-npm link @adarsh/brand
+npm link @adarsh_goswami/brand
 ```
 Changes to the local package are instantly reflected — no publish cycle needed during development.
 
@@ -104,11 +105,11 @@ Brief reference table — see Notion ADRs for full reasoning.
 | # | Decision | Chosen | Rejected | Key reason |
 |---|---|---|---|---|
 | ADR-001 | Package structure | Standalone npm package (separate repo) | Monorepo with Turborepo | Clean independent git history per project; no tooling overhead for a solo developer |
-| ADR-002 | npm dist-tags | Deferred — semver only for now | `dev`/`latest` channels, separate `@adarsh/brand-dev` package | Not enough active consumers to justify overhead; revisit at 4–5 projects |
+| ADR-002 | npm dist-tags | Deferred — semver only for now | `dev`/`latest` channels, separate `@adarsh_goswami/brand-dev` package | Not enough active consumers to justify overhead; revisit at 4–5 projects |
 | ADR-003 | Component strategy | Pre-themed Radix UI components | Custom React components from scratch | Owning accessibility and interaction for every component is an ongoing maintenance burden |
 | ADR-004 | Component library | Radix UI | Material UI | Radix is unstyled by design; MUI fights back against brand overrides |
 | ADR-005 | CSS utility layer | Tailwind CSS | CSS Modules, CSS-in-JS, plain CSS | Co-located styles, no leakage, brand preset makes tokens available as utilities automatically |
-| ADR-006 | Project scaffolding | Fresh Vite setup + install `@adarsh/brand` | Clonable GitHub starter template | Templates drift; clones detach from the source and don't get future brand updates |
+| ADR-006 | Project scaffolding | Fresh Vite setup + install `@adarsh_goswami/brand` | Clonable GitHub starter template | Templates drift; clones detach from the source and don't get future brand updates |
 | ADR-007 | React | Peer dependency | Bundled inside package | Bundling React causes duplicate instances and hooks errors in consuming apps |
 
 ### Constraints Claude Code must respect
@@ -140,7 +141,7 @@ adarsh-brand/
 │   │   │   └── index.ts
 │   │   └── index.ts         ← barrel export for all components
 │   ├── theme.css            ← all CSS custom property tokens
-│   ├── tailwind.preset.js   ← Tailwind preset (extends defaults)
+│   ├── tailwind.config.css  ← Tailwind v4 @theme block
 │   ├── assets/
 │   │   ├── logo.svg
 │   │   ├── logo-mark.svg
@@ -151,7 +152,7 @@ adarsh-brand/
 │   ├── index.mjs            ← ESM
 │   ├── index.d.ts           ← TypeScript types
 │   ├── theme.css
-│   ├── tailwind.preset.js
+│   ├── tailwind.config.css
 │   └── assets/
 │       ├── logo.svg
 │       ├── logo-mark.svg
@@ -191,11 +192,11 @@ bun run build
 npm link
 
 # 5. In any consuming project
-npm link @adarsh/brand
+npm link @adarsh_goswami/brand
 
 # 6. When done, unlink to restore normal npm resolution
 # In consuming project:
-npm unlink @adarsh/brand
+npm unlink @adarsh_goswami/brand
 # In adarsh-brand:
 npm unlink
 ```
@@ -206,7 +207,7 @@ CI/CD handles publishing automatically via GitHub Actions (`.github/workflows/pu
 
 | Branch | Output | npm tag | Version format |
 |---|---|---|---|
-| `develop` | Prerelease | `dev` | `0.1.0-dev.{git-sha}` |
+| `develop` | Prerelease | `dev` | `0.1.1-dev`, `0.1.2-dev` (auto-increment patch) |
 | `main` | Stable | `latest` | `0.1.0` |
 
 Before merging to `main`, bump the version manually:
@@ -216,7 +217,7 @@ npm version patch   # or minor / major
 
 Install the dev build in a consuming project:
 ```bash
-npm install @adarsh/brand@dev
+npm install @adarsh_goswami/brand@dev
 ```
 
 **Required:** Add `NPM_TOKEN` as a secret in the GitHub repo settings (Settings → Secrets → Actions).
