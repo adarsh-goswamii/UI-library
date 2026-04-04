@@ -33,8 +33,9 @@
   --color-accent:        var(--accent);
   --color-accent-bright: var(--accent-bright);
   --color-accent-dim:    var(--accent-dim);
-  --color-accent-hover:  var(--accent-hover);
-  --color-accent-active: var(--accent-active);
+  --color-accent-hover:    var(--accent-hover);
+  --color-accent-active:   var(--accent-active);
+  --color-accent-contrast: var(--accent-contrast);
 
   /* ── COLORS — SEMANTIC ── */
   --color-success: var(--success);

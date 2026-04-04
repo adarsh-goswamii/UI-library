@@ -29,8 +29,9 @@
   --accent:        #7C6EFA;
   --accent-bright: #9B8FFB;
   --accent-dim:    #4A3FCC;
-  --accent-glow:   rgba(124, 110, 250, 0.15);
-  --accent-subtle: rgba(124, 110, 250, 0.08);
+  --accent-glow:     rgba(124, 110, 250, 0.15);
+  --accent-subtle:   rgba(124, 110, 250, 0.08);
+  --accent-contrast: #ffffff;
 
   /* Semantic */
   --success: #3DD68C;
