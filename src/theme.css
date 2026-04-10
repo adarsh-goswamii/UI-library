@@ -123,6 +123,19 @@
   --sp-20: 5rem;
   --sp-24: 6rem;
 
+  /* ── LAYOUT ── */
+  /* Prefixed to avoid conflict with Tailwind namespaces */
+  --brand-layout-container-max: 1100px;
+  --brand-layout-px:            1.5rem;
+  --brand-layout-prose-max:     520px;
+  --brand-layout-prose-sm-max:  440px;
+
+  /* ── TYPOGRAPHY — FLUID SIZES ── */
+  --brand-text-hero: clamp(3rem, 8vw, 5rem);
+
+  /* ── BACKDROP ── */
+  --brand-backdrop-blur-nav: 12px;
+
   /* ── RADIUS ── */
   /* Prefixed to avoid conflict with Tailwind's --radius-* namespace */
   --brand-radius-sm:   4px;

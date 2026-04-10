@@ -76,6 +76,18 @@
   --tracking-wider:   var(--brand-tracking-wider);
   --tracking-widest:  var(--brand-tracking-widest);
 
+  /* ── LAYOUT ── */
+  --container-max:   var(--brand-layout-container-max);
+  --prose-max:       var(--brand-layout-prose-max);
+  --prose-sm-max:    var(--brand-layout-prose-sm-max);
+  --spacing-layout-px: var(--brand-layout-px);
+
+  /* ── TYPOGRAPHY — FLUID SIZES ── */
+  --text-hero: var(--brand-text-hero);
+
+  /* ── BACKDROP BLUR ── */
+  --blur-nav: var(--brand-backdrop-blur-nav);
+
   /* ── RADIUS ── */
   --radius-sm:   var(--brand-radius-sm);
   --radius-md:   var(--brand-radius-md);
