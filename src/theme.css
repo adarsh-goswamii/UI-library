@@ -236,27 +236,27 @@
   --brand-shadow-accent: 0 0 24px rgba(107, 92, 232, 0.20);
 }
 
-/* ── SWITCH — DARK VARIANT ── */
+/* ── THEME TOGGLE ── */
 /*
-  Cosmic space-themed switch for dark pages.
-  Off: deep star-field track, moon thumb with crater detail.
-  On:  nebula gradient track, glowing violet orb thumb.
+  The one opinionated switch in this package — toggles dark/light theme.
+  Dark mode: deep space track with stars, moon thumb → glowing orb when switching to light.
+  Light mode: clean minimal track, accent fill when active.
 */
 
-/* Track — deep space base */
-.ag-switch-dark.rt-SwitchRoot {
+/* Dark mode — cosmic track */
+.ag-theme-toggle.rt-SwitchRoot {
   background: #07060e;
   border: 1px solid rgba(124, 110, 250, 0.25);
   position: relative;
   overflow: hidden;
   transition:
-    background     var(--brand-duration-base) var(--brand-ease-out),
-    border-color   var(--brand-duration-base) var(--brand-ease-out),
-    box-shadow     var(--brand-duration-base) var(--brand-ease-out);
+    background   var(--brand-duration-base) var(--brand-ease-out),
+    border-color var(--brand-duration-base) var(--brand-ease-out),
+    box-shadow   var(--brand-duration-base) var(--brand-ease-out);
 }
 
-/* Star field — scattered radial dots via background-image */
-.ag-switch-dark.rt-SwitchRoot::before {
+/* Star field */
+.ag-theme-toggle.rt-SwitchRoot::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -273,14 +273,13 @@
   pointer-events: none;
 }
 
-/* Hover — faint violet rim brightens */
-.ag-switch-dark.rt-SwitchRoot:hover:not([data-disabled]) {
+.ag-theme-toggle.rt-SwitchRoot:hover:not([data-disabled]) {
   border-color: rgba(124, 110, 250, 0.45);
   box-shadow: 0 0 12px rgba(124, 110, 250, 0.08);
 }
 
-/* Checked track — nebula gradient + glow */
-.ag-switch-dark.rt-SwitchRoot[data-state="checked"] {
+/* Checked (switching to light) — nebula gradient */
+.ag-theme-toggle.rt-SwitchRoot[data-state="checked"] {
   background: linear-gradient(125deg, #1a1040 0%, #2e1f80 50%, var(--accent-dim) 100%);
   border-color: var(--accent);
   box-shadow:
@@ -289,28 +288,19 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-/* Stars fade out as the track lights up */
-.ag-switch-dark.rt-SwitchRoot[data-state="checked"]::before {
-  opacity: 0;
-}
+/* Stars fade as nebula takes over */
+.ag-theme-toggle.rt-SwitchRoot[data-state="checked"]::before { opacity: 0; }
 
-/* Focus ring */
-.ag-switch-dark.rt-SwitchRoot:focus-visible {
+.ag-theme-toggle.rt-SwitchRoot:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
 }
-.ag-switch-dark.rt-SwitchRoot[data-state="checked"]:focus-visible {
+.ag-theme-toggle.rt-SwitchRoot[data-state="checked"]:focus-visible {
   box-shadow: var(--focus-ring), 0 0 22px rgba(124, 110, 250, 0.28);
 }
 
-/* Disabled */
-.ag-switch-dark.rt-SwitchRoot[data-disabled] {
-  opacity: 0.35;
-  cursor: not-allowed;
-}
-
-/* Thumb — moon */
-.ag-switch-dark.rt-SwitchRoot .rt-SwitchThumb {
+/* Moon thumb */
+.ag-theme-toggle.rt-SwitchRoot .rt-SwitchThumb {
   background: radial-gradient(circle at 36% 32%, #eeeaff 0%, #b8b0f0 38%, #7c74c4 75%, #4e4890 100%);
   box-shadow:
     0 0 0 2px rgba(124, 110, 250, 0.45),
@@ -319,34 +309,31 @@
   position: relative;
   overflow: hidden;
   transition:
-    background  var(--brand-duration-base) var(--brand-ease-out),
-    box-shadow  var(--brand-duration-base) var(--brand-ease-out),
-    transform   var(--brand-duration-base) var(--brand-ease-out);
+    background var(--brand-duration-base) var(--brand-ease-out),
+    box-shadow var(--brand-duration-base) var(--brand-ease-out),
+    transform  var(--brand-duration-base) var(--brand-ease-out);
 }
 
 /* Moon craters */
-.ag-switch-dark.rt-SwitchRoot .rt-SwitchThumb::before {
+.ag-theme-toggle.rt-SwitchRoot .rt-SwitchThumb::before {
   content: '';
   position: absolute;
-  width:  38%;
-  height: 38%;
+  width: 38%; height: 38%;
   border-radius: 50%;
   background: rgba(60, 50, 120, 0.30);
-  top:  18%;
-  left: 20%;
+  top: 18%; left: 20%;
   box-shadow:
     6px -1px 0 1.5px rgba(60, 50, 120, 0.22),
     2px  8px 0 1px   rgba(60, 50, 120, 0.18);
   pointer-events: none;
 }
 
-/* Thumb squish on press */
-.ag-switch-dark.rt-SwitchRoot:active:not([data-disabled]) .rt-SwitchThumb {
+.ag-theme-toggle.rt-SwitchRoot:active:not([data-disabled]) .rt-SwitchThumb {
   transform: scaleX(1.16);
 }
 
-/* Thumb — glowing orb (checked) */
-.ag-switch-dark.rt-SwitchRoot[data-state="checked"] .rt-SwitchThumb {
+/* Glowing orb thumb when checked */
+.ag-theme-toggle.rt-SwitchRoot[data-state="checked"] .rt-SwitchThumb {
   background: radial-gradient(circle at 38% 32%, #ffffff 0%, var(--accent-bright) 45%, var(--accent) 100%);
   box-shadow:
     0 0 0 2px rgba(255, 255, 255, 0.25),
@@ -354,80 +341,25 @@
     0 0 36px rgba(124, 110, 250, 0.45),
     0 2px 4px rgba(0, 0, 0, 0.35);
 }
+.ag-theme-toggle.rt-SwitchRoot[data-state="checked"] .rt-SwitchThumb::before { display: none; }
 
-/* No craters on the orb */
-.ag-switch-dark.rt-SwitchRoot[data-state="checked"] .rt-SwitchThumb::before {
-  display: none;
-}
-
-/* ── SWITCH — LIGHT VARIANT ── */
-/*
-  Minimal clean switch for light pages.
-  Off: soft white/gray track, clean white thumb.
-  On:  accent fill, no glow — intentionally understated.
-*/
-
-/* Track — off */
-.ag-switch-light.rt-SwitchRoot {
+/* Checked state = light mode active — clean minimal regardless of page theme */
+.ag-theme-toggle.rt-SwitchRoot[data-state="checked"] {
   background: #e8e7f0;
-  border: 1px solid rgba(0, 0, 0, 0.10);
-  transition:
-    background   var(--brand-duration-base) var(--brand-ease-out),
-    border-color var(--brand-duration-base) var(--brand-ease-out),
-    box-shadow   var(--brand-duration-base) var(--brand-ease-out);
-  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: none;
 }
-
-/* Track — hover (off) */
-.ag-switch-light.rt-SwitchRoot:hover:not([data-disabled]) {
+.ag-theme-toggle.rt-SwitchRoot[data-state="checked"]::before { opacity: 0; }
+.ag-theme-toggle.rt-SwitchRoot[data-state="checked"]:hover:not([data-disabled]) {
   background: #dddce8;
-  border-color: rgba(0, 0, 0, 0.16);
+  border-color: rgba(0, 0, 0, 0.18);
+  box-shadow: none;
 }
-
-/* Track — checked */
-.ag-switch-light.rt-SwitchRoot[data-state="checked"] {
-  background: var(--accent);
-  border-color: var(--accent);
-}
-
-/* Track — hover (checked) */
-.ag-switch-light.rt-SwitchRoot[data-state="checked"]:hover:not([data-disabled]) {
-  background: var(--accent-hover);
-  border-color: var(--accent-hover);
-}
-
-/* Focus ring */
-.ag-switch-light.rt-SwitchRoot:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px var(--accent);
-}
-
-/* Disabled */
-.ag-switch-light.rt-SwitchRoot[data-disabled] {
-  opacity: 0.40;
-  cursor: not-allowed;
-}
-
-/* Thumb */
-.ag-switch-light.rt-SwitchRoot .rt-SwitchThumb {
+.ag-theme-toggle.rt-SwitchRoot[data-state="checked"] .rt-SwitchThumb {
   background: #ffffff;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.18),
-    0 0 0 1px rgba(0, 0, 0, 0.06);
-  transition: transform var(--brand-duration-base) var(--brand-ease-out);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.20), 0 0 0 1px rgba(0, 0, 0, 0.06);
 }
-
-/* Thumb squish on press */
-.ag-switch-light.rt-SwitchRoot:active:not([data-disabled]) .rt-SwitchThumb {
-  transform: scaleX(1.16);
-}
-
-/* Thumb — checked: stays white, subtle shadow lift */
-.ag-switch-light.rt-SwitchRoot[data-state="checked"] .rt-SwitchThumb {
-  box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.15),
-    0 0 0 1px rgba(0, 0, 0, 0.04);
-}
+.ag-theme-toggle.rt-SwitchRoot[data-state="checked"] .rt-SwitchThumb::before { display: none; }
 
 /* ── RADIX UI THEMES OVERRIDE ── */
 /*
