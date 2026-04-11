@@ -256,7 +256,7 @@
 }
 
 /* Star field */
-.ag-theme-toggle.rt-SwitchRoot::before {
+.ag-theme-toggle.rt-SwitchRoot::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -289,7 +289,7 @@
 }
 
 /* Stars fade as nebula takes over */
-.ag-theme-toggle.rt-SwitchRoot[data-state="checked"]::before { opacity: 0; }
+.ag-theme-toggle.rt-SwitchRoot[data-state="checked"]::after { opacity: 0; }
 
 .ag-theme-toggle.rt-SwitchRoot:focus-visible {
   outline: none;
@@ -349,7 +349,7 @@
   border: 1px solid rgba(0, 0, 0, 0.12);
   box-shadow: none;
 }
-.ag-theme-toggle.rt-SwitchRoot[data-state="checked"]::before { opacity: 0; }
+.ag-theme-toggle.rt-SwitchRoot[data-state="checked"]::after { opacity: 0; }
 .ag-theme-toggle.rt-SwitchRoot[data-state="checked"]:hover:not([data-disabled]) {
   background: #dddce8;
   border-color: rgba(0, 0, 0, 0.18);
