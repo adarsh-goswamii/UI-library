@@ -1,6 +1,6 @@
 /* @adarsh_goswami/brand — design tokens */
 /* Single source of truth for all brand decisions */
-/* Dark-first only for v1 */
+/* Dark theme: default (:root). Light theme: add data-theme="light" to <html> */
 
 /*
   Required Google Fonts import — add to your project's index.html or global CSS:
@@ -171,10 +171,76 @@
   --brand-z-tooltip:  600;
 }
 
+/* ── LIGHT THEME OVERRIDES ── */
+/*
+  Apply data-theme="light" to <html> and use <Theme appearance="light"> in Radix.
+*/
+
+[data-theme="light"] {
+  /* Backgrounds */
+  --bg-base:       #FAFAFA;
+  --bg-surface:    #FFFFFF;
+  --bg-raised:     #F4F4F6;
+  --bg-overlay:    #EEEEF2;
+
+  --border-subtle: #E8E8EF;
+  --border-soft:   #D8D8E4;
+  --border-mid:    #C0C0D0;
+
+  --text-primary:   #0D0C14;
+  --text-secondary: #4A4860;
+  --text-muted:     #7A788C;
+  --text-disabled:  #B0AEC4;
+
+  /* Accent — slightly deepened for contrast on light backgrounds */
+  --accent:        #6B5CE8;
+  --accent-bright: #7C6EFA;
+  --accent-dim:    #4A3FCC;
+  --accent-glow:     rgba(107, 92, 232, 0.12);
+  --accent-subtle:   rgba(107, 92, 232, 0.06);
+  --accent-contrast: #ffffff;
+
+  /* Semantic — same hues, readable on light */
+  --success: #1F9E62;
+  --warning: #C07A10;
+  --error:   #C62B44;
+  --info:    #1A72CC;
+
+  --success-bg: rgba(31, 158, 98, 0.08);
+  --warning-bg: rgba(192, 122, 16, 0.08);
+  --error-bg:   rgba(198, 43, 68, 0.08);
+  --info-bg:    rgba(26, 114, 204, 0.08);
+
+  --accent-border:  rgba(107, 92, 232, 0.20);
+  --success-border: rgba(31, 158, 98, 0.20);
+  --warning-border: rgba(192, 122, 16, 0.20);
+  --error-border:   rgba(198, 43, 68, 0.20);
+  --info-border:    rgba(26, 114, 204, 0.20);
+
+  /* Interactive states */
+  --bg-hover:      #EFEFF4;
+  --bg-active:     #E5E5ED;
+
+  --accent-hover:  #7C6EFA;
+  --accent-active: #5D4FD6;
+
+  --border-hover:  #A8A8BE;
+  --border-focus:  #6B5CE8;
+
+  --focus-ring: 0 0 0 2px var(--bg-base), 0 0 0 4px var(--accent);
+
+  /* Shadows — lighter for light surfaces */
+  --brand-shadow-sm:     0 1px 2px rgba(0, 0, 0, 0.08);
+  --brand-shadow-md:     0 4px 16px rgba(0, 0, 0, 0.10);
+  --brand-shadow-lg:     0 12px 40px rgba(0, 0, 0, 0.14);
+  --brand-shadow-accent: 0 0 24px rgba(107, 92, 232, 0.20);
+}
+
 /* ── RADIX UI THEMES OVERRIDE ── */
 /*
   Usage in consuming projects — no accentColor/grayColor props needed:
-  <Theme appearance="dark">
+  Dark:  <Theme appearance="dark">
+  Light: <Theme appearance="light">  (with data-theme="light" on <html>)
 */
 
 /* Define accent and gray scales directly — Radix reads these without needing named color props */
@@ -237,6 +303,74 @@
   --gray-a10: rgba(255, 255, 255, 0.27);
   --gray-a11: rgba(255, 255, 255, 0.52);
   --gray-a12: rgba(240, 238, 248, 0.97);
+
+  /* ── Font families ── */
+  --default-font-family: var(--brand-font-body);
+  --heading-font-family: var(--brand-font-display);
+  --code-font-family:    var(--brand-font-mono);
+}
+
+/* ── RADIX UI THEMES — LIGHT OVERRIDE ── */
+/* Applied when <html data-theme="light"> + <Theme appearance="light"> */
+[data-theme="light"] .radix-themes {
+  /* ── Accent scale — AG brand violet-indigo on light ── */
+  --accent-1:  #faf9ff;
+  --accent-2:  #f3f1ff;
+  --accent-3:  #e8e4ff;
+  --accent-4:  #d8d2ff;
+  --accent-5:  #c8c0ff;
+  --accent-6:  #b3a8ff;
+  --accent-7:  #9b8ffb;
+  --accent-8:  #7c6efa;
+  --accent-9:  #6B5CE8;  /* --accent        */
+  --accent-10: #5D4FD6;  /* --accent-hover  */
+  --accent-11: #4A3FCC;  /* --accent-dim    */
+  --accent-12: #1a1060;
+
+  --accent-a1:  rgba(107, 92, 232, 0.02);
+  --accent-a2:  rgba(107, 92, 232, 0.05);
+  --accent-a3:  rgba(107, 92, 232, 0.10);
+  --accent-a4:  rgba(107, 92, 232, 0.16);
+  --accent-a5:  rgba(107, 92, 232, 0.22);
+  --accent-a6:  rgba(107, 92, 232, 0.30);
+  --accent-a7:  rgba(107, 92, 232, 0.42);
+  --accent-a8:  rgba(107, 92, 232, 0.60);
+  --accent-a9:  rgba(107, 92, 232, 0.85);
+  --accent-a10: rgba(93, 79, 214, 0.88);
+  --accent-a11: rgba(74, 63, 204, 0.92);
+  --accent-a12: rgba(26, 16, 96, 0.97);
+
+  --accent-contrast:  #ffffff;
+  --accent-surface:   rgba(107, 92, 232, 0.06);
+  --accent-indicator: #6B5CE8;
+  --accent-track:     #6B5CE8;
+
+  /* ── Gray scale — AG light palette ── */
+  --gray-1:  #FAFAFA;  /* --bg-base        */
+  --gray-2:  #FFFFFF;  /* --bg-surface      */
+  --gray-3:  #F4F4F6;  /* --bg-raised       */
+  --gray-4:  #EEEEF2;  /* --bg-overlay      */
+  --gray-5:  #EFEFF4;  /* --bg-hover        */
+  --gray-6:  #E8E8EF;  /* --border-subtle   */
+  --gray-7:  #D8D8E4;  /* --border-soft     */
+  --gray-8:  #C0C0D0;  /* --border-mid      */
+  --gray-9:  #B0AEC4;  /* --text-disabled   */
+  --gray-10: #7A788C;  /* --text-muted      */
+  --gray-11: #4A4860;  /* --text-secondary  */
+  --gray-12: #0D0C14;  /* --text-primary    */
+
+  --gray-a1:  rgba(0, 0, 0, 0.00);
+  --gray-a2:  rgba(0, 0, 0, 0.00);
+  --gray-a3:  rgba(0, 0, 0, 0.04);
+  --gray-a4:  rgba(0, 0, 0, 0.07);
+  --gray-a5:  rgba(0, 0, 0, 0.06);
+  --gray-a6:  rgba(0, 0, 0, 0.09);
+  --gray-a7:  rgba(0, 0, 0, 0.15);
+  --gray-a8:  rgba(0, 0, 0, 0.25);
+  --gray-a9:  rgba(0, 0, 0, 0.31);
+  --gray-a10: rgba(0, 0, 0, 0.53);
+  --gray-a11: rgba(0, 0, 0, 0.72);
+  --gray-a12: rgba(0, 0, 0, 0.95);
 
   /* ── Font families ── */
   --default-font-family: var(--brand-font-body);
