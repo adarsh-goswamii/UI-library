@@ -278,18 +278,6 @@
   box-shadow: 0 0 12px rgba(124, 110, 250, 0.08);
 }
 
-/* Checked (switching to light) — nebula gradient */
-.ag-theme-toggle.rt-SwitchRoot[data-state="checked"] {
-  background: linear-gradient(125deg, #1a1040 0%, #2e1f80 50%, var(--accent-dim) 100%);
-  border-color: var(--accent);
-  box-shadow:
-    0 0 0 3px var(--accent-subtle),
-    0 0 22px rgba(124, 110, 250, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
-
-/* Stars fade as nebula takes over */
-.ag-theme-toggle.rt-SwitchRoot[data-state="checked"]::after { opacity: 0; }
 
 .ag-theme-toggle.rt-SwitchRoot:focus-visible {
   outline: none;
@@ -332,16 +320,6 @@
   transform: scaleX(1.16);
 }
 
-/* Glowing orb thumb when checked */
-.ag-theme-toggle.rt-SwitchRoot[data-state="checked"] .rt-SwitchThumb {
-  background: radial-gradient(circle at 38% 32%, #ffffff 0%, var(--accent-bright) 45%, var(--accent) 100%);
-  box-shadow:
-    0 0 0 2px rgba(255, 255, 255, 0.25),
-    0 0 18px rgba(124, 110, 250, 0.90),
-    0 0 36px rgba(124, 110, 250, 0.45),
-    0 2px 4px rgba(0, 0, 0, 0.35);
-}
-.ag-theme-toggle.rt-SwitchRoot[data-state="checked"] .rt-SwitchThumb::before { display: none; }
 
 /* Checked state = light mode active — clean minimal regardless of page theme */
 .ag-theme-toggle.rt-SwitchRoot[data-state="checked"] {
