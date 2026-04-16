@@ -241,26 +241,35 @@
   The one opinionated switch in this package — toggles dark/light theme.
   Dark mode: deep space track with stars, moon thumb → glowing orb when switching to light.
   Light mode: clean minimal track, accent fill when active.
+
+  Architecture note: Radix Switch renders the pill-shaped track on ::before (not on the root
+  element). The root element's border-radius resolves to 0px outside of .rt-Skeleton, so all
+  visual background/border styling must target ::before to stay pill-shaped.
 */
 
-/* Dark mode — cosmic track */
+/* Root — layout only; no visual background/border here */
 .ag-theme-toggle.rt-SwitchRoot {
-  background: #07060e;
-  border: 1px solid rgba(124, 110, 250, 0.25);
   position: relative;
-  overflow: hidden;
-  transition:
-    background   var(--brand-duration-base) var(--brand-ease-out),
-    border-color var(--brand-duration-base) var(--brand-ease-out),
-    box-shadow   var(--brand-duration-base) var(--brand-ease-out);
+  outline: none;   /* suppress any browser outline on the <button> root */
+  background: none;
 }
 
-/* Star field */
+/* Dark mode — cosmic track on the pill-shaped ::before */
+.ag-theme-toggle.rt-SwitchRoot::before {
+  background-color: #07060e;
+  background-image: none;   /* override Radix gradient */
+  box-shadow: inset 0 0 0 1px rgba(124, 110, 250, 0.25);
+  transition:
+    background-color var(--brand-duration-base) var(--brand-ease-out),
+    box-shadow       var(--brand-duration-base) var(--brand-ease-out);
+}
+
+/* Star field — border-radius uses the pill variable directly (not inherit, which would be 0) */
 .ag-theme-toggle.rt-SwitchRoot::after {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: inherit;
+  border-radius: var(--switch-border-radius);
   background-image:
     radial-gradient(0.8px 0.8px at 15% 25%, rgba(255,255,255,0.80) 0%, transparent 100%),
     radial-gradient(0.6px 0.6px at 72% 18%, rgba(255,255,255,0.60) 0%, transparent 100%),
@@ -273,18 +282,22 @@
   pointer-events: none;
 }
 
-.ag-theme-toggle.rt-SwitchRoot:hover:not([data-disabled]) {
-  border-color: rgba(124, 110, 250, 0.45);
-  box-shadow: 0 0 12px rgba(124, 110, 250, 0.08);
+.ag-theme-toggle.rt-SwitchRoot:hover:not([data-disabled])::before {
+  box-shadow:
+    inset 0 0 0 1px rgba(124, 110, 250, 0.45),
+    0 0 12px rgba(124, 110, 250, 0.08);
 }
 
-
+/* Suppress Radix's focus outline on ::before and replace with our pill-shaped focus ring */
 .ag-theme-toggle.rt-SwitchRoot:focus-visible {
   outline: none;
-  box-shadow: var(--focus-ring);
 }
-.ag-theme-toggle.rt-SwitchRoot[data-state="checked"]:focus-visible {
-  box-shadow: var(--focus-ring), 0 0 22px rgba(124, 110, 250, 0.28);
+.ag-theme-toggle.rt-SwitchRoot:focus-visible::before {
+  outline: none;
+  box-shadow: inset 0 0 0 1px rgba(124, 110, 250, 0.25), var(--focus-ring);
+}
+.ag-theme-toggle.rt-SwitchRoot[data-state="checked"]:focus-visible::before {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12), var(--focus-ring);
 }
 
 /* Moon thumb */
@@ -322,16 +335,14 @@
 
 
 /* Checked state = light mode active — clean minimal regardless of page theme */
-.ag-theme-toggle.rt-SwitchRoot[data-state="checked"] {
-  background: #e8e7f0;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  box-shadow: none;
+.ag-theme-toggle.rt-SwitchRoot[data-state="checked"]::before {
+  background-color: #e8e7f0;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
 }
 .ag-theme-toggle.rt-SwitchRoot[data-state="checked"]::after { opacity: 0; }
-.ag-theme-toggle.rt-SwitchRoot[data-state="checked"]:hover:not([data-disabled]) {
-  background: #dddce8;
-  border-color: rgba(0, 0, 0, 0.18);
-  box-shadow: none;
+.ag-theme-toggle.rt-SwitchRoot[data-state="checked"]:hover:not([data-disabled])::before {
+  background-color: #dddce8;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
 }
 .ag-theme-toggle.rt-SwitchRoot[data-state="checked"] .rt-SwitchThumb {
   background: #ffffff;
