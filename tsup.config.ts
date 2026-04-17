@@ -7,6 +7,9 @@ export default defineConfig({
   dts: true,
   clean: true,
   external: ['react', 'react-dom', '@radix-ui/themes', 'tailwindcss'],
+  esbuildOptions(options) {
+    options.loader = { ...options.loader, '.svg': 'dataurl' }
+  },
   onSuccess: async () => {
     // Copy static CSS files
     copyFileSync('src/theme.css', 'dist/theme.css')

@@ -1,3 +1,5 @@
 export * from './DocsLayout'
+export * from './Footer'
+export * from './Logo'
 export * from './Theme'
 export * from './ThemePage'
