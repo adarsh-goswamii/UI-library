@@ -1,8 +1,8 @@
 {
-  "name": "@adarsh_goswami/brand",
+  "name": "@adarsh_goswami/design",
   "version": "0.1.0",
   "type": "module",
-  "description": "Single source of truth for Adarsh Goswami's personal brand — pre-themed Radix UI components, CSS tokens, and Tailwind preset.",
+  "description": "Single source of truth for Adarsh Goswami's personal design system — pre-themed Radix UI components, CSS tokens, and Tailwind preset.",
   "author": "Adarsh Goswami",
   "license": "MIT",
   "exports": {
