@@ -1,3 +1,4 @@
+export * from './BlogPost'
 export * from './DocsLayout'
 export * from './Footer'
 export * from './Logo'
