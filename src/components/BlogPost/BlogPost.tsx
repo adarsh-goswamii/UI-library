@@ -6,17 +6,7 @@ import type { Components } from 'react-markdown'
 import { Box, Flex, Heading, Separator, Text } from '@radix-ui/themes'
 
 export interface BlogPostProps {
-  title: string
-  date: string
-  tags?: string[]
   content: string
-  readingTime?: number
-  onBack?: () => void
-}
-
-function calcReadingTime(content: string): number {
-  const words = content.trim().split(/\s+/).filter(Boolean).length
-  return Math.ceil(words / 200)
 }
 
 const markdownComponents: Components = {
@@ -214,45 +204,9 @@ const markdownComponents: Components = {
   ),
 }
 
-export function BlogPost({
-  title,
-  date,
-  tags = [],
-  content,
-  readingTime,
-  onBack,
-}: BlogPostProps) {
-  const minutes = readingTime ?? calcReadingTime(content)
-
+export function BlogPost({ content }: BlogPostProps) {
   return (
     <article className="blog-post">
-      {onBack && (
-        <button className="blog-post__back" onClick={onBack}>
-          ← Back
-        </button>
-      )}
-
-      <header>
-        <h1 className="blog-post__title">{title}</h1>
-        <div className="blog-post__meta">
-          <span className="blog-post__meta-text">{date}</span>
-          <span className="blog-post__meta-dot">·</span>
-          <span className="blog-post__meta-text">{minutes} min read</span>
-          {tags.length > 0 && (
-            <>
-              <span className="blog-post__meta-dot">·</span>
-              <div className="blog-post__tags">
-                {tags.map((tag) => (
-                  <span key={tag} className="blog-post__tag">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </>
-          )}
-        </div>
-      </header>
-
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeHighlight]}
