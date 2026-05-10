@@ -62,32 +62,33 @@ const markdownComponents: Components = {
       {children}
     </a>
   ),
+  pre: ({ children }) => (
+    <Box
+      mb="4"
+      style={{
+        borderRadius: 'var(--brand-radius-lg)',
+        border: '1px solid var(--border-soft)',
+        backgroundColor: 'var(--bg-raised)',
+        overflowX: 'auto',
+      }}
+    >
+      <pre style={{ margin: 0, padding: 'var(--sp-4)' }}>{children}</pre>
+    </Box>
+  ),
   code: ({ className, children }) => {
-    const isBlock = className?.startsWith('language-')
+    const isBlock = !!className?.startsWith('language-')
     if (isBlock) {
       return (
-        <Box
-          mb="4"
+        <code
+          className={className ?? ''}
           style={{
-            borderRadius: 'var(--brand-radius-lg)',
-            border: '1px solid var(--border-soft)',
-            backgroundColor: 'var(--bg-raised)',
-            overflowX: 'auto',
+            fontSize: 'var(--brand-text-sm)',
+            fontFamily: 'var(--brand-font-mono)',
+            color: 'var(--text-primary)',
           }}
         >
-          <code
-            className={className ?? ''}
-            style={{
-              display: 'block',
-              padding: 'var(--sp-4)',
-              fontSize: 'var(--brand-text-sm)',
-              fontFamily: 'var(--brand-font-mono)',
-              color: 'var(--text-primary)',
-            }}
-          >
-            {children}
-          </code>
-        </Box>
+          {children}
+        </code>
       )
     }
     return (
