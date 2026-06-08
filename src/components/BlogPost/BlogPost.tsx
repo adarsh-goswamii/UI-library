@@ -3,7 +3,47 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeHighlight from 'rehype-highlight'
 import type { Components } from 'react-markdown'
+import type { ReactNode } from 'react'
 import { Box, Flex, Heading, Separator, Text } from '@radix-ui/themes'
+
+const HEX_SPLIT_REGEX = /(#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{3})(?![0-9A-Fa-f])/
+const HEX_EXACT_REGEX = /^#[0-9A-Fa-f]{6}$|^#[0-9A-Fa-f]{3}$/
+
+function ColorSwatch({ hex }: { hex: string }) {
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', verticalAlign: 'middle' }}>
+      <span
+        style={{
+          display: 'inline-block',
+          width: '12px',
+          height: '12px',
+          backgroundColor: hex,
+          borderRadius: '2px',
+          border: '1px solid rgba(255,255,255,0.2)',
+          flexShrink: 0,
+        }}
+      />
+      {hex}
+    </span>
+  )
+}
+
+function injectColorSwatches(node: ReactNode): ReactNode {
+  if (typeof node === 'string') {
+    const parts = node.split(HEX_SPLIT_REGEX)
+    if (parts.length === 1) return node
+    return parts.map((part, i) =>
+      HEX_EXACT_REGEX.test(part) ? <ColorSwatch key={i} hex={part} /> : part
+    )
+  }
+  if (Array.isArray(node)) {
+    return node.flatMap((child) => {
+      const result = injectColorSwatches(child)
+      return Array.isArray(result) ? result : [result]
+    })
+  }
+  return node
+}
 
 export interface BlogPostProps {
   content: string
@@ -54,7 +94,7 @@ const markdownComponents: Components = {
         display: 'block',
       }}
     >
-      {children}
+      {injectColorSwatches(children)}
     </Text>
   ),
   a: ({ href, children }) => (
@@ -143,7 +183,7 @@ const markdownComponents: Components = {
         display: 'list-item',
       }}
     >
-      {children}
+      {injectColorSwatches(children)}
     </Text>
   ),
   blockquote: ({ children }) => (
@@ -184,7 +224,7 @@ const markdownComponents: Components = {
         fontWeight: 500,
       }}
     >
-      {children}
+      {injectColorSwatches(children)}
     </th>
   ),
   td: ({ children }) => (
@@ -195,7 +235,7 @@ const markdownComponents: Components = {
         color: 'var(--text-secondary)',
       }}
     >
-      {children}
+      {injectColorSwatches(children)}
     </td>
   ),
   hr: () => (
