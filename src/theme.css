@@ -125,7 +125,7 @@
 
   /* ── LAYOUT ── */
   /* Prefixed to avoid conflict with Tailwind namespaces */
-  --brand-layout-container-max: 1100px;
+  --brand-layout-container-max: 1440px;
   --brand-layout-px:            1.5rem;
   --brand-layout-prose-max:     520px;
   --brand-layout-prose-sm-max:  440px;
