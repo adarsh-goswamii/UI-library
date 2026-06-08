@@ -131,6 +131,36 @@ const markdownComponents: Components = {
         </code>
       )
     }
+    const hexText = typeof children === 'string' ? children : ''
+    if (HEX_EXACT_REGEX.test(hexText)) {
+      return (
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', verticalAlign: 'middle' }}>
+          <span
+            style={{
+              display: 'inline-block',
+              width: '12px',
+              height: '12px',
+              backgroundColor: hexText,
+              borderRadius: '2px',
+              border: '1px solid rgba(255,255,255,0.2)',
+              flexShrink: 0,
+            }}
+          />
+          <code
+            style={{
+              backgroundColor: 'var(--bg-raised)',
+              color: 'var(--accent-bright)',
+              borderRadius: 'var(--brand-radius-sm)',
+              padding: '2px 6px',
+              fontSize: 'var(--brand-text-sm)',
+              fontFamily: 'var(--brand-font-mono)',
+            }}
+          >
+            {children}
+          </code>
+        </span>
+      )
+    }
     return (
       <code
         style={{
